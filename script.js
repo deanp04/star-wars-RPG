@@ -17,8 +17,8 @@ const enemyStats = document.querySelector("#enemyStats");
 const enemyName = document.querySelector("#enemyName");
 const enemyHealthText = document.querySelector("#enemyHealth");
 const weapons = [
-  { name: 'Staff', power: 5 },
-  { name: 'Blaster Pistol', power: 30 },
+  { name: ' Staff', power: 5 },
+  { name: ' Blaster Pistol', power: 30 },
   { name: ' Bowcaster', power: 50 },
   { name: ' Lightsaber', power: 100 }
 ];
