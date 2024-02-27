@@ -1,6 +1,6 @@
 let xp = 0;
 let health = 100;
-let gold = 50;
+let credits = 50;
 let currentWeapon = 0;
 let fighting;
 let enemyHealth;
@@ -12,7 +12,7 @@ const button3 = document.querySelector("#button3");
 const text = document.querySelector("#text");
 const xpText = document.querySelector("#xpText");
 const healthText = document.querySelector("#healthText");
-const goldText = document.querySelector("#goldText");
+const creditsText = document.querySelector("#creditsText");
 const enemyStats = document.querySelector("#enemyStats");
 const enemyName = document.querySelector("#enemyName");
 const enemyHealthText = document.querySelector("#enemyHealth");
@@ -22,7 +22,7 @@ const weapons = [
   { name: 'claw hammer', power: 50 },
   { name: 'sword', power: 100 }
 ];
-const enemys = [
+const enemies = [
   {
     name: "slime",
     level: 2,
@@ -48,7 +48,7 @@ const locations = [
   },
   {
     name: "store",
-    "button text": ["Buy 10 health (10 gold)", "Buy weapon (30 gold)", "Go to town square"],
+    "button text": ["Buy 10 health (10 credits)", "Buy weapon (30 credits)", "Go to town square"],
     "button functions": [buyHealth, buyWeapon, goTown],
     text: "You enter the store."
   },
@@ -56,7 +56,7 @@ const locations = [
     name: "cave",
     "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
     "button functions": [fightSlime, fightBeast, goTown],
-    text: "You enter the cave. You see some enemys."
+    text: "You enter the cave. You see some enemies."
   },
   {
     name: "fight",
@@ -68,7 +68,7 @@ const locations = [
     name: "kill enemy",
     "button text": ["Go to town square", "Go to town square", "Go to town square"],
     "button functions": [goTown, goTown, easterEgg],
-    text: 'The enemy screams "Arg!" as it dies. You gain experience points and find gold.'
+    text: 'The enemy screams "Arg!" as it dies. You gain experience points and find credits.'
   },
   {
     name: "lose",
@@ -119,40 +119,40 @@ function goCave() {
 }
 
 function buyHealth() {
-  if (gold >= 10) {
-    gold -= 10;
+  if (credits >= 10) {
+    credits -= 10;
     health += 10;
-    goldText.innerText = gold;
+    creditsText.innerText = credits;
     healthText.innerText = health;
   } else {
-    text.innerText = "You do not have enough gold to buy health.";
+    text.innerText = "You do not have enough credits to buy health.";
   }
 }
 
 function buyWeapon() {
   if (currentWeapon < weapons.length - 1) {
-    if (gold >= 30) {
-      gold -= 30;
+    if (credits >= 30) {
+      credits -= 30;
       currentWeapon++;
-      goldText.innerText = gold;
+      creditsText.innerText = credits;
       let newWeapon = weapons[currentWeapon].name;
       text.innerText = "You now have a " + newWeapon + ".";
       inventory.push(newWeapon);
       text.innerText += " In your inventory you have: " + inventory;
     } else {
-      text.innerText = "You do not have enough gold to buy a weapon.";
+      text.innerText = "You do not have enough credits to buy a weapon.";
     }
   } else {
     text.innerText = "You already have the most powerful weapon!";
-    button2.innerText = "Sell weapon for 15 gold";
+    button2.innerText = "Sell weapon for 15 credits";
     button2.onclick = sellWeapon;
   }
 }
 
 function sellWeapon() {
   if (inventory.length > 1) {
-    gold += 15;
-    goldText.innerText = gold;
+    credits += 15;
+    creditsText.innerText = credits;
     let currentWeapon = inventory.shift();
     text.innerText = "You sold a " + currentWeapon + ".";
     text.innerText += " In your inventory you have: " + inventory;
@@ -178,16 +178,16 @@ function fightDragon() {
 
 function goFight() {
   update(locations[3]);
-  enemyHealth = enemys[fighting].health;
+  enemyHealth = enemies[fighting].health;
   enemyStats.style.display = "block";
-  enemyName.innerText = enemys[fighting].name;
+  enemyName.innerText = enemies[fighting].name;
   enemyHealthText.innerText = enemyHealth;
 }
 
 function attack() {
-  text.innerText = "The " + enemys[fighting].name + " attacks.";
+  text.innerText = "The " + enemies[fighting].name + " attacks.";
   text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
-  health -= getenemyAttackValue(enemys[fighting].level);
+  health -= getenemyAttackValue(enemies[fighting].level);
   if (isenemyHit()) {
     enemyHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    
   } else {
@@ -221,13 +221,13 @@ function isenemyHit() {
 }
 
 function dodge() {
-  text.innerText = "You dodge the attack from the " + enemys[fighting].name;
+  text.innerText = "You dodge the attack from the " + enemies[fighting].name;
 }
 
 function defeatenemy() {
-  gold += Math.floor(enemys[fighting].level * 6.7);
-  xp += enemys[fighting].level;
-  goldText.innerText = gold;
+  credits += Math.floor(enemies[fighting].level * 6.7);
+  xp += enemies[fighting].level;
+  creditsText.innerText = credits;
   xpText.innerText = xp;
   update(locations[4]);
 }
@@ -243,10 +243,10 @@ function winGame() {
 function restart() {
   xp = 0;
   health = 100;
-  gold = 50;
+  credits = 50;
   currentWeapon = 0;
   inventory = ["stick"];
-  goldText.innerText = gold;
+  creditsText.innerText = credits;
   healthText.innerText = health;
   xpText.innerText = xp;
   goTown();
@@ -274,9 +274,9 @@ function pick(guess) {
     text.innerText += numbers[i] + "\n";
   }
   if (numbers.includes(guess)) {
-    text.innerText += "Right! You win 20 gold!";
-    gold += 20;
-    goldText.innerText = gold;
+    text.innerText += "Right! You win 20 credits!";
+    credits += 20;
+    creditsText.innerText = credits;
   } else {
     text.innerText += "Wrong! You lose 10 health!";
     health -= 10;
