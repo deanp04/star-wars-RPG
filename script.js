@@ -4,7 +4,7 @@ let credits = 50;
 let currentWeapon = 0;
 let fighting;
 let enemyHealth;
-let inventory = ["stick"];
+let inventory = ["Staff"];
 
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector("#button2");
@@ -24,50 +24,50 @@ const weapons = [
 ];
 const enemies = [
   {
-    name: "slime",
+    name: "Tusken Raider",
     level: 2,
     health: 15
   },
   {
-    name: "fanged beast",
+    name: "Rancor",
     level: 8,
     health: 60
   },
   {
-    name: "dragon",
+    name: "Darth Vader",
     level: 20,
     health: 300
   }
 ]
 const locations = [
   {
-    name: "town square",
-    "button text": ["Go to store", "Go to cave", "Fight dragon"],
-    "button functions": [goStore, goCave, fightDragon],
-    text: "You are in the town square. You see a sign that says \"Store\"."
+    name: "marketplace",
+    "button text": ["Visit Equipment Dealer", "Explore Desert Caves", "Fight Vader"],
+    "button functions": [goDealer, goCave, fightVader],
+    text: "You are in the marketplace. You see a sign that says \"Equipment Dealer\"."
   },
   {
-    name: "store",
-    "button text": ["Buy 10 health (10 credits)", "Buy weapon (30 credits)", "Go to town square"],
-    "button functions": [buyHealth, buyWeapon, goTown],
-    text: "You enter the store."
+    name: "dealer",
+    "button text": ["Buy 10 health (10 credits)", "Buy weapon (30 credits)", "Go to marketplace"],
+    "button functions": [buyHealth, buyWeapon, goMarket],
+    text: "You enter the Equipment Dealer Shop."
   },
   {
     name: "cave",
-    "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
-    "button functions": [fightSlime, fightBeast, goTown],
+    "button text": ["Fight slime", "Fight fanged beast", "Go to marketplace"],
+    "button functions": [fightSlime, fightBeast, goMarket],
     text: "You enter the cave. You see some enemies."
   },
   {
     name: "fight",
     "button text": ["Attack", "Dodge", "Run"],
-    "button functions": [attack, dodge, goTown],
+    "button functions": [attack, dodge, goMarket],
     text: "You are fighting a enemy."
   },
   {
     name: "kill enemy",
-    "button text": ["Go to town square", "Go to town square", "Go to town square"],
-    "button functions": [goTown, goTown, easterEgg],
+    "button text": ["Go to marketplace", "Go to marketplace", "Go to marketplace"],
+    "button functions": [goMarket, goMarket, easterEgg],
     text: 'The enemy screams "Arg!" as it dies. You gain experience points and find credits.'
   },
   {
@@ -80,20 +80,20 @@ const locations = [
     name: "win", 
     "button text": ["REPLAY?", "REPLAY?", "REPLAY?"], 
     "button functions": [restart, restart, restart], 
-    text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;" 
+    text: "You defeat Darth Vader! YOU WIN THE GAME! &#x1F389;" 
   },
   {
     name: "easter egg",
-    "button text": ["2", "8", "Go to town square?"],
-    "button functions": [pickTwo, pickEight, goTown],
+    "button text": ["2", "8", "Go to marketplace?"],
+    "button functions": [pickTwo, pickEight, goMarket],
     text: "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!"
   }
 ];
 
 // initialize buttons
-button1.onclick = goStore;
+button1.onclick = goDealer;
 button2.onclick = goCave;
-button3.onclick = fightDragon;
+button3.onclick = fightVader;
 
 function update(location) {
   enemyStats.style.display = "none";
@@ -106,11 +106,11 @@ function update(location) {
   text.innerHTML = location.text;
 }
 
-function goTown() {
+function goMarket() {
   update(locations[0]);
 }
 
-function goStore() {
+function goDealer() {
   update(locations[1]);
 }
 
@@ -171,7 +171,7 @@ function fightBeast() {
   goFight();
 }
 
-function fightDragon() {
+function fightVader() {
   fighting = 2;
   goFight();
 }
@@ -249,7 +249,7 @@ function restart() {
   creditsText.innerText = credits;
   healthText.innerText = health;
   xpText.innerText = xp;
-  goTown();
+  goMarket();
 }
 
 function easterEgg() {
