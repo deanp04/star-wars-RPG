@@ -54,15 +54,15 @@ const locations = [
   },
   {
     name: "cave",
-    "button text": ["Fight slime", "Fight fanged beast", "Go to marketplace"],
-    "button functions": [fightSlime, fightBeast, goMarket],
+    "button text": ["Fight Tusken Raider", "Fight Rancor", "Go to marketplace"],
+    "button functions": [fightRaider, fightRancor, goMarket],
     text: "You enter the cave. You see some enemies."
   },
   {
     name: "fight",
     "button text": ["Attack", "Dodge", "Run"],
     "button functions": [attack, dodge, goMarket],
-    text: "You are fighting a enemy."
+    text: "You are fighting an enemy."
   },
   {
     name: "kill enemy",
@@ -161,12 +161,12 @@ function sellWeapon() {
   }
 }
 
-function fightSlime() {
+function fightRaider() {
   fighting = 0;
   goFight();
 }
 
-function fightBeast() {
+function fightRancor() {
   fighting = 1;
   goFight();
 }
